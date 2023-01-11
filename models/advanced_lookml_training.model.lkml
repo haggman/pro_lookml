@@ -101,5 +101,3 @@ explore: products {
     relationship: many_to_one
   }
 }
-
-explore: test_products_brand_id {}
