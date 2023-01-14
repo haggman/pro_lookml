@@ -14,6 +14,18 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_21_or_over {
+    type: yesno
+    sql:  ${age} >= 21;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    style: integer #You might try the other formatting options
+    sql: ${age} ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -44,20 +56,27 @@ view: users {
     type: string
     sql: ${TABLE}.email ;;
   }
-
+  #Hide first and last name, then provide a concatenated name
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
-  }
-
-  dimension: gender {
-    type: string
-    sql: ${TABLE}.gender ;;
+    hidden: yes
   }
 
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+    hidden: yes
+  }
+
+  dimension: name {
+    type: string
+    sql: concat(${last_name}, ', ', ${first_name}) ;;
+  }
+
+  dimension: gender {
+    type: string
+    sql: ${TABLE}.gender ;;
   }
 
   dimension: latitude {
@@ -71,8 +90,16 @@ view: users {
   }
 
   dimension: state {
+    label: "State/Locality"
     type: string
     sql: ${TABLE}.state ;;
+    map_layer_name: us_states
+  }
+
+  # Add support for UK users
+  dimension: uk_postcode_area {
+    sql: case when ${TABLE}.country = 'UK' then regexp_replace(${zip}, '[0-9]', '') else null end;;
+    map_layer_name: uk_postcode_areas
   }
 
   dimension: traffic_source {

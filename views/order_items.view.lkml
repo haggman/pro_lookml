@@ -4,6 +4,7 @@ view: order_items {
   drill_fields: [id]
 
   dimension: id {
+    label: "Order Item ID"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -98,9 +99,20 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  measure: count {
+  measure: count_of_ordered_items {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
