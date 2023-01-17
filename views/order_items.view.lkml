@@ -3,6 +3,7 @@ view: order_items {
     ;;
   drill_fields: [id]
 
+
   dimension: id {
     label: "Order Item ID"
     primary_key: yes
