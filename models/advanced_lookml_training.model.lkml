@@ -5,8 +5,9 @@ include: "/views/**/*.view"
 
 datagroup: advanced_lookml_training_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+ interval_trigger: "1 hour"
 }
+
 
 persist_with: advanced_lookml_training_default_datagroup
 
@@ -14,6 +15,13 @@ label: "eCommerce"
 
 explore: order_items {
   label: "(1) Orders, Items, and Users"
+
+  join: brand_order_facts {
+    type: left_outer
+    sql_on: ${inventory_items.product_brand} = ${brand_order_facts.product_brand} ;;
+    relationship: many_to_one
+  }
+
   join: inventory_items {
     #left only pulled in items on orders
     type: full_outer
@@ -73,5 +81,20 @@ explore: events {
     type: left_outer
     sql_on: ${ad_events.keyword_id} = ${keywords.keyword_id} ;;
     relationship: many_to_one
+  }
+}
+
+## Extensions
+# Place in `advanced_lookml_training` model
+explore: +order_items {
+  aggregate_table: rollup__created_date {
+    query: {
+      dimensions: [created_date]
+      measures: [count_of_ordered_items, count_of_orders, order_revenue]
+    }
+
+    materialization: {
+      datagroup_trigger: advanced_lookml_training_default_datagroup
+    }
   }
 }
