@@ -50,6 +50,26 @@ view: products {
     sql: ${TABLE}.sku ;;
   }
 
+  filter: select_category {
+    description: "Use with Category Comparison dimension"
+    type: string
+    suggest_dimension: products.category
+  }
+
+  dimension: category_comparison {
+    description: "Use with Select Category filter"
+    type: string
+    sql:
+      CASE
+      WHEN {% condition select_category %}
+        ${category}
+        {% endcondition %}
+      THEN ${category}
+      ELSE 'All Other Categories'
+      END
+      ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, name, distribution_centers.name, distribution_centers.id, inventory_items.count]

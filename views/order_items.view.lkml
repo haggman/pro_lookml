@@ -117,6 +117,52 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: order_revenue_color_highlighted {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    html: {% if value > 1300.00 %}
+          <p style="color: white; background-color: ##FFC20A; margin: 0; border-radius: 5px; text-align:center">{{ rendered_value }}</p>
+          {% elsif value > 1200.00 %}
+          <p style="color: white; background-color: #0C7BDC; margin: 0; border-radius: 5px; text-align:center">{{ rendered_value }}</p>
+          {% else %}
+          <p style="color: white; background-color: #6D7170; margin: 0; border-radius: 5px; text-align:center">{{ rendered_value }}</p>
+          {% endif %}
+          ;;
+  }
+
+  parameter: select_timeframe {
+    description: "Use with Dynamic Timeframe dimension"
+    type: unquoted
+    default_value: "created_month"
+    allowed_value: {
+      value: "created_date"
+      label: "Day"
+    }
+    allowed_value: {
+      value: "created_week"
+      label: "Week"
+    }
+    allowed_value: {
+      value: "created_month"
+      label: "Month"
+    }
+  }
+
+  dimension: dynamic_timeframe {
+    description: "Use with Select Timeframe filter"
+    label_from_parameter: select_timeframe
+    type: string
+    sql:
+    {% if select_timeframe._parameter_value == 'created_date' %}
+    ${created_date}
+    {% elsif select_timeframe._parameter_value == 'created_week' %}
+    ${created_week}
+    {% else %}
+    ${created_month}
+    {% endif %} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
