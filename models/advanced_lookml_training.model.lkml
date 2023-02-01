@@ -1,7 +1,10 @@
-connection: "bigquery_public_data_looker"
+connection: "@{db_connection}"
 
 # include all the views
 include: "/views/**/*.view"
+
+# include the refinements
+include: "/refinements/**/*"
 
 datagroup: advanced_lookml_training_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -11,9 +14,8 @@ datagroup: advanced_lookml_training_default_datagroup {
 
 persist_with: advanced_lookml_training_default_datagroup
 
-label: "eCommerce"
-
 explore: order_items {
+  group_label: "eCommerce"
   label: "(1) Orders, Items, and Users"
 
   join: brand_order_facts {
@@ -49,7 +51,9 @@ explore: order_items {
 }
 
 explore: inventory_items {
-  label: "(3) Inventory"
+  group_label: "Inventory Control"
+  view_name: inventory_items
+  label: "Inventory"
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
@@ -63,7 +67,15 @@ explore: inventory_items {
   }
 }
 
+explore: inventory {
+  extends: [inventory_items]
+  from: inventory_items
+  label: "(3) Inventory"
+  group_label: "eCommerce"
+}
+
 explore: events {
+  group_label: "eCommerce"
   label: "(2) Web Event Data"
   join: ad_events {
     type: left_outer
@@ -81,20 +93,5 @@ explore: events {
     type: left_outer
     sql_on: ${ad_events.keyword_id} = ${keywords.keyword_id} ;;
     relationship: many_to_one
-  }
-}
-
-## Extensions
-# Place in `advanced_lookml_training` model
-explore: +order_items {
-  aggregate_table: rollup__created_date {
-    query: {
-      dimensions: [created_date]
-      measures: [count_of_ordered_items, count_of_orders, order_revenue]
-    }
-
-    materialization: {
-      datagroup_trigger: advanced_lookml_training_default_datagroup
-    }
   }
 }

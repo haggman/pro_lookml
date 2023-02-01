@@ -1,5 +1,5 @@
 view: ad_groups {
-  sql_table_name: `looker_ecomm.ad_groups`
+  sql_table_name: `@{dataset}.ad_groups`
     ;;
 
   dimension: ad_id {

@@ -1,0 +1,16 @@
+{
+  "ID": "Identifiant",
+  "Brand": "Marque",
+  "Category": "Catégorie",
+  "Cost": "Coût",
+  "Department": "Département",
+  "Distribution Center ID": "ID du centre de distribution",
+  "Name": "Nom",
+  "Retail Price": "Prix en détail",
+  "SKU": "Sku",
+  "Count": "Compté",
+  "(1) Orders, Items, and Users": "(1) Commandes, articles, et utilisateurs",
+  "Select Category": "Choisir une catégorie",
+  "Category Comparison": "Comparaison des catégories",
+  "Products": "Des produits"
+}

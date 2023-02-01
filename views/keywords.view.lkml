@@ -1,5 +1,5 @@
 view: keywords {
-  sql_table_name: `looker_ecomm.keywords`
+  sql_table_name: `@{dataset}.keywords`
     ;;
   drill_fields: [keyword_id]
 

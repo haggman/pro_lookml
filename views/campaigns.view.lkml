@@ -1,5 +1,5 @@
 view: campaigns {
-  sql_table_name: `looker_ecomm.campaigns`
+  sql_table_name: `@{dataset}.campaigns`
     ;;
   drill_fields: [id]
 

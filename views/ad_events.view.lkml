@@ -1,5 +1,5 @@
 view: ad_events {
-  sql_table_name: `looker_ecomm.ad_events`
+  sql_table_name: `@{dataset}.ad_events`
     ;;
   drill_fields: [id]
 
