@@ -131,6 +131,11 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  measure: average_age {
+    type: average
+    sql: ${age} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, last_name, first_name, order_items.count, events.count]
