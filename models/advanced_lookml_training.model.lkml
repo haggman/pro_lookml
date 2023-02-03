@@ -6,7 +6,7 @@ include: "/views/**/*.view"
 # include the refinements
 include: "/refinements/**/*"
 
-include: "tests/**/*"
+include: "/tests/**/*"
 
 datagroup: advanced_lookml_training_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
