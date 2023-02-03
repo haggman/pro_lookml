@@ -117,9 +117,10 @@ view: order_items {
     value_format_name: usd
   }
 
-  measure: order_revenue_max {
-    type: max
+  measure: order_revenue_average {
+    type: average
     sql: ${order_revenue} ;;
+    value_format_name: usd
   }
   
   measure: order_revenue_color_highlighted {
