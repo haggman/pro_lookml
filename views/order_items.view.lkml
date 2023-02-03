@@ -117,6 +117,11 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: order_revenue_max {
+    type: max
+    sql: ${order_revenue} ;;
+  }
+  
   measure: order_revenue_color_highlighted {
     type: sum
     sql: ${sale_price} ;;
@@ -154,7 +159,7 @@ view: order_items {
     label_from_parameter: select_timeframe
     type: string
     sql:
-    {% if select_timeframe._parameter_value == 'created_date' %}
+    {% if select_timeframe._parameter_value == 'created_datee' %}
     ${created_date}
     {% elsif select_timeframe._parameter_value == 'created_week' %}
     ${created_week}

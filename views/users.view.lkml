@@ -117,7 +117,7 @@ view: users {
 
   # Add support for UK users
   dimension: uk_postcode_area {
-    sql: case when ${TABLE}.country = 'UK' then regexp_replace(${zip}, '[0-9]', '') else null end;;
+    sql: cae when ${TABLE}.country = 'UK' then regexp_replace(${zip}, '[0-9]', '') else null end;;
     map_layer_name: uk_postcode_areas
   }
 

@@ -34,6 +34,11 @@ view: inventory_items {
     sql: ${TABLE}.product_brand ;;
   }
 
+  dimension: brand_rank {
+    type: number
+    sql: ${brand_order_facts.brand_rank} ;;
+  }
+
   dimension: product_category {
     type: string
     sql: ${TABLE}.product_category ;;
