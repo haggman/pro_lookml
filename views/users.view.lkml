@@ -80,13 +80,26 @@ view: users {
   }
 
   dimension: latitude {
+    hidden: yes
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
+    hidden: yes
     type: number
     sql: ${TABLE}.longitude ;;
+  }
+
+  dimension: user_location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: #${longitude} ;;
+    link: {
+      label: "Get Directions"
+      url: "https://www.google.com/maps/dir/?api=1&destination={{ value }}"
+      icon_url: "http://www.google.com/s2/favicons?domain=maps.google.com"
+    }
   }
 
   dimension: state {
