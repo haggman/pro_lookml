@@ -82,11 +82,30 @@ view: users {
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
+    hidden: yes
   }
 
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+    hidden: yes
+  }
+
+  dimension: user_location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
+    link: {
+      label: "Get Directions"
+      url: "https://www.google.com/maps/dir/?api=1&destination={{ value }}"
+      icon_url: "http://www.google.com/s2/favicons?domain=maps.google.com"
+    }
+  }
+
+  dimension: order_history_button {
+    label: "Order History"
+    sql: ${TABLE}.id ;;
+    html: <a href="/explore/advanced_lookml_training/order_items?fields=users.name,order_items.created_date,order_items.order_id,products.id,products.name&f[order_items.user_id]={{ value }}&limit=500" target="_blank"><button>Order History</button></a> ;;
   }
 
   dimension: state {
