@@ -1,5 +1,5 @@
 view: keywords {
-  sql_table_name: `looker_ecomm.keywords`
+  sql_table_name: `cloud-training-demos.looker_ecomm.keywords`
     ;;
   drill_fields: [keyword_id]
 

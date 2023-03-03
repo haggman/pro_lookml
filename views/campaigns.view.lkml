@@ -1,5 +1,5 @@
 view: campaigns {
-  sql_table_name: `looker_ecomm.campaigns`
+  sql_table_name: `cloud-training-demos.looker_ecomm.campaigns`
     ;;
   drill_fields: [id]
 
