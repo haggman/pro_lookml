@@ -56,6 +56,8 @@ explore: inventory_items {
   group_label: "Inventory Control"
   view_name: inventory_items
   label: "Inventory"
+  fields: [ALL_FIELDS*, -inventory_items.brand_rank]
+
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
@@ -67,6 +69,7 @@ explore: inventory_items {
     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
 }
 
 explore: inventory {
