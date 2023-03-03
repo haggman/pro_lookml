@@ -5,7 +5,7 @@ constant: db_connection {
 }
 
 constant: dataset {
-  value: "looker_ecomm"
+  value: "cloud-training-demos.looker_ecomm"
 }
 
 localization_settings: {
