@@ -3,26 +3,6 @@ view: products {
     ;;
   drill_fields: [id]
 
-  filter: select_category {
-    description: "Use with Category Comparison dimension"
-    type: string
-    suggest_dimension: products.category
-  }
-
-  dimension: category_comparison {
-    description: "Use with Select Category filter"
-    type: string
-    sql:
-      CASE
-      WHEN {% condition select_category %}
-         ${category}
-         {% endcondition %}
-      THEN ${category}
-      ELSE 'All Other Categories'
-      END
-      ;;
-  }
-
   dimension: id {
     primary_key: yes
     type: number
