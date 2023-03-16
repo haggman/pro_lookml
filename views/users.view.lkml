@@ -141,7 +141,7 @@ view: users {
   dimension: uk_postcode_area {
     description: "UK postcode area, can also be used for mapping UK customers"
     group_label: "Geographic"
-    sql: case when ${TABLE}.country = 'UK' then regexp_replace(${zip}, '[0-9]', '') else null end;;
+    sql: cae when ${TABLE}.country = 'UK' then regexp_replace(${zip}, '[0-9]', '') else null end;;
     map_layer_name: uk_postcode_areas
   }
 

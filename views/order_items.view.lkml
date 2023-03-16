@@ -119,7 +119,7 @@ view: order_items {
 
   measure: order_revenue_average {
     type: number
-    sql: ${order_revenue}/${count_of_orders} ;;
+    sql: avg(${order_revenue}) ;;
     value_format_name: usd
   }
 
@@ -160,7 +160,7 @@ view: order_items {
     label_from_parameter: select_timeframe
     type: string
     sql:
-    {% if select_timeframe._parameter_value == 'created_date' %}
+    {% if select_timeframe._parameter_value == 'created_dte' %}
     ${created_date}
     {% elsif select_timeframe._parameter_value == 'created_week' %}
     ${created_week}

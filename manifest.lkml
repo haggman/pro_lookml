@@ -1,5 +1,3 @@
-project_name: "advanced_lookml_training"
-
 constant: db_connection {
   value: "bigquery_public_data_looker"
 }

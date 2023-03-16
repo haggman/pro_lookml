@@ -56,7 +56,6 @@ explore: inventory_items {
   group_label: "Inventory Control"
   view_name: inventory_items
   label: "Inventory"
-  fields: [ALL_FIELDS*, -inventory_items.brand_rank]
 
   join: products {
     type: left_outer
