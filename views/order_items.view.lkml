@@ -3,21 +3,6 @@ view: order_items {
     ;;
   drill_fields: [id]
 
-  parameter: select_timeframe {
-    type: unquoted
-    default_value: "created_month"
-    allowed_value: {
-      value: "created_date"
-      label: "Day"}
-    allowed_value: {
-      value: "created_weak"
-      label: "Week"
-    }
-    allowed_value: {
-      value: "created_month"
-      label: "Month"
-    }
-  }
 
   dimension: id {
     label: "Order Item ID"
@@ -26,19 +11,6 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: dynamic_timeframe {
-    description: "Use with Select Timeframe filter"
-    label_from_parameter: select_timeframe
-    type: string
-    sql:
-       {% if select_timeframe._parameter_value == 'created_date' %}
-          ${created_date}
-       {% elsif select_timeframe._parameter_value == 'created_week' %}
-          ${created_week}
-       {% else %}
-          ${created_month}
-       {% endif %} ;;
-  }
 
   dimension_group: created {
     type: time
@@ -100,7 +72,6 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
-    value_format_name: usd
   }
 
   dimension_group: shipped {
@@ -134,13 +105,11 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
-
   measure: count_of_orders {
     type: count_distinct
     sql: ${order_id} ;;
   }
-
-  measure: order_revenue {
+  measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
